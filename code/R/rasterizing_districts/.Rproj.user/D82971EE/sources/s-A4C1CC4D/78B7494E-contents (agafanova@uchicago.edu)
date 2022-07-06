@@ -1,0 +1,133 @@
+# Final project 
+# Keisuke Ito and Alina Gafanova
+
+# clear
+rm(list=ls())
+
+# set seed
+set.seed(123)
+
+# set directory
+wd <- "/Users/itoutoshisuke/box/ml_for_econometrics"
+setwd(wd)
+
+# load packages
+library(easypackages)
+packages <- c("tidyverse","MASS","reshape2","gridExtra","cowplot","grid","gtools","stargazer","glmnet")
+libraries(packages)
+
+#------------------------------------------------------------------------------#
+# 1. Read the daily outage and temperature data
+#------------------------------------------------------------------------------#
+
+#read daily outage and temperature data
+daily_data <- read.csv("data/daily_data.csv")
+
+#convert string date to date format in R
+daily_data$date <- as.Date(daily_data$date,format = "%m/%d/%Y")
+
+#sort data by BA name and date
+daily_data <- daily_data[order(daily_data$baname, daily_data$date),]
+
+#keep necessary variables 
+daily_data <- daily_data[,c("baname","date","gloadmw","outage_reass","max_temp","min_temp")]
+
+#------------------------------------------------------------------------------#
+# 2. Data preparation: compute rate of change 
+#------------------------------------------------------------------------------#
+
+#fill in the gap between the dates 
+#(to avoid computing rate of change when the data period is skipped)
+comp <- as.data.frame(complete(daily_data,baname,date))
+
+#since we will take log to compute rate of change, replace 0 with 0.1 
+comp$gen <- comp$gloadmw
+comp$gen[comp$gen==0 & !is.na(comp$gen)] <- (comp$gen[comp$gen==0 & !is.na(comp$gen)]+0.1)
+
+#take log of generation
+comp$ln_gen <- log(comp$gen, base=exp(1))
+
+#take difference between t and t-1
+comp <- as.data.frame(comp %>% group_by(baname) %>% mutate(diff1 = ln_gen - lag(ln_gen)))
+comp <- as.data.frame(comp %>% group_by(baname) %>% mutate(diff2 = lead(ln_gen) - ln_gen))
+
+#create lag and lead 
+comp <- as.data.frame(comp %>% group_by(baname) %>% mutate(lag = lag(gen)))
+comp <- as.data.frame(comp %>% group_by(baname) %>% mutate(lead = lead(gen)))
+
+#drop missing values (except outage variable)
+check_col <- colnames(comp)[colnames(comp)!="outage_reass"]
+comp <- comp[complete.cases(comp[,check_col]),]
+
+#------------------------------------------------------------------------------#
+# 3. Data preparation: Divide the data sets into 1997-2007 and 2008-2020
+#------------------------------------------------------------------------------#
+
+#create year 
+comp$year <- format(comp$date,"%Y")
+
+#data 1997-2007
+dat_a <- comp[comp$year>2007,]
+
+#data 2008-2020
+dat_b <- comp[comp$year<=2007,]
+
+#------------------------------------------------------------------------------#
+# 4. Prediction: train Random Forest
+#------------------------------------------------------------------------------#
+
+#convert outage dummy to factor variable
+dat_a$outage_factor <- as.factor(dat_a$outage_reass)
+
+#fit the random forest (using data 2008-2020)
+rf <- randomForest(outage_factor~gen+diff1+diff2+lag+lead + max_temp + min_temp,data=dat_a,ntree=25,mtry=3)
+
+#------------------------------------------------------------------------------#
+# 5. Prediction: impute missing values in the data 1997-2007
+#------------------------------------------------------------------------------#
+
+#predict outages using data before 2008
+dat_b$label_rf <- as.numeric(as.character(predict(rf,newdata = dat_b)))
+
+#------------------------------------------------------------------------------#
+# 5. Estimate the effects of deregulation using imputed outages
+#------------------------------------------------------------------------------#
+
+#read yearly data 
+year_data <- read.csv("data/yearly_data.csv")
+
+#read real daily outage data
+out <- daily_data
+
+#create year 
+out$year <- format(out$date,"%Y")
+
+#aggregate real outage at BA and year level
+out <- out %>% group_by(baname, year) %>% summarise(outage=sum(outage_reass))
+
+#aggregate imputed outage at BA and year level
+dat_b <- dat_b %>% group_by(baname, year) %>% summarise(label_rf=sum(label_rf))
+
+#merge all data sets
+year_data <- merge(year_data,out,by=c("baname","year"))
+year_data <- merge(year_data,dat_b,by=c("baname","year"),all.x = T)
+
+#replace missing values with imputed outages
+year_data$outage[year_data$year<2008] <- year_data$label_rf[year_data$year<2008]
+
+#create year and unit FE
+year_data$ba_g <- as.factor(year_data$ba_g)
+year_data$year_fe <- as.factor(year_data$year)
+
+#regression specification
+formula <- as.formula(paste("outage~", paste0("event", 0:5, collapse = "+"), "+","ba_g", "+", "year_fe", "+" , 
+                            "cold_days", "+", "hot_days", "-1"))
+#run the regression
+reg <- lm(formula, data = year_data)
+
+#obtain coefficients on event dummies
+coef <- t(as.data.frame(coef(reg)[1:6]))
+
+#save the estimates
+write.csv(coef,"data/est_result.csv")
+

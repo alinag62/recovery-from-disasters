@@ -1,0 +1,140 @@
+library("raster")
+library(sf)
+library(ggplot2)
+library(rgeos)
+library(fasterize)
+library("geosphere")
+
+rm(list=ls())
+setwd("/Users/alina/Library/CloudStorage/Box-Box/recovery-from-disasters/")
+
+pointsCyclones <- st_read("data/tropical-cyclones/raw/IBTrACS-points/IBTrACS.ALL.list.v04r00.points.shp")
+
+start_time <- Sys.time()
+linda <- subset(pointsCyclones, NAME=="LINDA"&SEASON==1997)
+linda_east <- subset(pointsCyclones, NAME=="LINDA"&SEASON==1997&LON>0&LON<120)
+#plot(linda_east['USA_WIND'])
+
+#vietnamADM2 <- st_read("data/firm-data/Vietnam/gadm36_VNM_shp/gadm36_VNM_2.shp")
+#vietnamADM2 <- st_transform(vietnamADM2, crs = st_crs(linda))
+#plot(vietnamADM2['GID_0'])
+
+vietnamADM0 <- st_read("data/firm-data/Vietnam/gadm36_VNM_shp/gadm36_VNM_0.shp")
+vietnamADM0 <- st_transform(vietnamADM0, crs = st_crs(linda_east))
+
+gridVietnam <- st_read("data/firm-data/Vietnam/gadm36_VNM_shp/grid_bbox_land.shp")
+gridVietnam <- st_transform(gridVietnam, crs = st_crs(linda_east))
+
+#buffers
+#linda_buffers_10km <- st_buffer(linda_east, dist=10000)
+#linda_buffers_50km <- st_buffer(linda_east, dist=50000)
+linda_buffers_500km <- st_buffer(linda_east, dist=500000)
+#linda_buffers_200km <- st_buffer(linda_east, dist=200000)
+
+#ggplot() + 
+ # geom_sf(data = gridVietnam['id'] , fill = NA) +
+  #geom_sf(data = vietnamADM0['GID_0']) +
+  #geom_sf(data = linda_east['USA_WIND']) +
+  #geom_sf(data = linda_buffers_500km['SEASON'], fill = NA, colour = "#00abff") +
+  #coord_sf()
+
+
+#TEST FOR ONE POINT
+one_point <- subset(linda_buffers_500km, ISO_TIME == '1997-11-02 09:00:00')
+#one_point_200km <- subset(linda_buffers_200km, ISO_TIME == '1997-11-02 09:00:00')
+one_point_centroid <- subset(linda_east, ISO_TIME == '1997-11-02 09:00:00')
+onePointHurricane <- st_intersection(gridVietnam, one_point)
+
+#ggplot() + 
+ # geom_sf(data = gridVietnam['id'] , fill = NA) +
+  #geom_sf(data = onePointHurricane['id'] , colour = "#00abff") +
+  #geom_sf(data = vietnamADM0['GID_0']) +
+  #geom_sf(data = one_point_centroid['USA_WIND']) +
+  #geom_sf(data = one_point['SEASON'], fill = NA, colour = "#00abff") +
+  #coord_sf()
+
+# Now, perform the wind speed calculations
+
+# 1. Clean the data
+onePointHurricane$site_latitude <- onePointHurricane$bottom+(onePointHurricane$top-onePointHurricane$bottom)/2
+onePointHurricane$site_longitude <- onePointHurricane$left+(onePointHurricane$right-onePointHurricane$left)/2
+onePointHurricaneClean <- onePointHurricane[c("ISO_TIME", "USA_LAT", "USA_LON", "USA_WIND", "USA_RMW", "STORM_SPD", "site_latitude", "site_longitude", "geometry")]
+names(onePointHurricaneClean)[names(onePointHurricaneClean) == "USA_WIND"] <- "V_m"
+names(onePointHurricaneClean)[names(onePointHurricaneClean) == "STORM_SPD"] <- "V_h"
+onePointHurricaneClean$USA_LAT_t_plus1 <- subset(linda_buffers_500km, ISO_TIME=='1997-11-02 12:00:00')$USA_LAT
+onePointHurricaneClean$USA_LON_t_plus1 <- subset(linda_buffers_500km, ISO_TIME=='1997-11-02 12:00:00')$USA_LON
+  
+# 2. Add model constants
+onePointHurricaneClean$S <- 1 
+onePointHurricaneClean$I <- 40 
+onePointHurricaneClean$F <- 0.8
+onePointHurricaneClean$G <- 1.5 
+#WE NEED TO CHOOSE THESE PARAMETERS OR ESTIMATE
+#onePointHurricaneClean$B <- 1.3
+onePointHurricaneClean$B <- 1.2
+
+# 3. Calculate RMW (change later)
+#onePointHurricaneClean$R_m <- 60000
+onePointHurricaneClean$R_m <- 80000
+
+# 4. Calculate radial distances
+onePointHurricaneClean$R <- distHaversine(as.matrix(st_drop_geometry(onePointHurricaneClean[,c("site_longitude","site_latitude")])), +
+                as.matrix(st_drop_geometry(onePointHurricaneClean[,c("USA_LON","USA_LAT")])))
+
+# 5. Calculate clockwise angles 
+
+eye <- as.matrix(st_drop_geometry(onePointHurricaneClean[,c("USA_LON","USA_LAT")]))
+site <- as.matrix(st_drop_geometry(onePointHurricaneClean[,c("site_longitude","site_latitude")]))
+next_eye <- as.matrix(st_drop_geometry(onePointHurricaneClean[,c("USA_LON_t_plus1","USA_LAT_t_plus1")]))
+
+#bearing - between eye and next position
+onePointHurricaneClean$bearing_eye_next <- bearing(eye, next_eye)
+onePointHurricaneClean$bearing_eye_next[onePointHurricaneClean$USA_LON > onePointHurricaneClean$USA_LON_t_plus1] <-  +
+          360 + onePointHurricaneClean$bearing_eye_next[onePointHurricaneClean$USA_LON > onePointHurricaneClean$USA_LON_t_plus1]
+
+#bearing - between eye and point
+onePointHurricaneClean$bearing_eye_site <- bearing(eye, site)
+onePointHurricaneClean$bearing_eye_site[onePointHurricaneClean$USA_LON > onePointHurricaneClean$site_longitude] <- +
+           360 + onePointHurricaneClean$bearing_eye_site[onePointHurricaneClean$USA_LON > onePointHurricaneClean$site_longitude]
+onePointHurricaneClean$T <- onePointHurricaneClean$bearing_eye_site - onePointHurricaneClean$bearing_eye_next
+
+# 6. Calculate the Speeds at each point
+onePointHurricaneClean$V_s <- with(onePointHurricaneClean, F*(V_m - S* (1-sin(T))*V_h*0.5)* +
+  ((R_m/R)^B*exp(1-(R_m/R)^B))^(0.5))
+
+end_time <- Sys.time()
+end_time - start_time
+
+
+ggplot(data = onePointHurricaneClean) +
+  geom_sf(aes(fill = V_s)) +
+  scale_fill_gradient(low = 'white', high = 'red') +
+  #geom_sf(data =vietnamADM0['GID_0'] , fill = NA) +
+  geom_sf(data = one_point['SEASON'], fill = NA) +
+  geom_sf(data = one_point_200km['SEASON'], fill = NA) + 
+  geom_sf(data = one_point_centroid['USA_WIND'])
+
+#tropical depression
+onePointHurricaneClean$cyclone <- 0
+onePointHurricaneClean$cyclone[onePointHurricaneClean$V_s>33] <-1
+
+ggplot(data = onePointHurricaneClean) +
+  geom_sf(aes(fill = cyclone)) +
+  scale_fill_gradient(low = 'white', high = 'red') +
+  geom_sf(data = one_point['SEASON'], fill = NA) +
+  geom_sf(data = one_point_200km['SEASON'], fill = NA) + 
+  geom_sf(data = one_point_centroid['USA_WIND'])
+
+# 7. Classify using Saffir-Simpson Hurricane Wind Scale and Plot
+
+
+
+#Interpolate to hourly data: positions use splines; values use linear interpolation
+#interpolated_data <- spline(unlist(linda_east['LON']), unlist(linda_east['LAT']), n = 3*length(linda_east), ties=mean)
+#df <- as.data.frame(cbind(interpolated_data$x, interpolated_data$y), row.names = c("LON", "LAT"))  
+#approx_linear <- approx(unlist(linda_east['LON']), unlist(linda_east['LAT']), n = 3*length(linda_east), ties=mean)
+#df2 <- as.data.frame(cbind(approx_linear$x, approx_linear$y), row.names = c("LON", "LAT"))  
+
+
+
+  
