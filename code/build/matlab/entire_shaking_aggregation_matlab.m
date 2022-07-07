@@ -1,3 +1,12 @@
+%{
+
+This is a master code for creating a shaking dataset based on
+a given multiploygon shapefile and years. It takes raw shakemaps and 
+generates csv files for each polygon-year in a shapefile with 
+the following stats: mpga, number of earthquakes, mpgv, mag, populations.
+
+%}
+
 %% MANUAL CHOICE, DONE IN SHELL
 path=getenv('path_from_shell');
 year_start=getenv('year_start_from_shell'); 

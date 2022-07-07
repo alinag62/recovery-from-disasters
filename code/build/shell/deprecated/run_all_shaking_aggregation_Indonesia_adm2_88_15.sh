@@ -18,7 +18,6 @@ export perc_thr_from_shell="10"
 # ID_in_survey is unique id in firm data
 # ID and ID_in_survey correspond to the same regions
 export ID_from_shell="ID_2"
-export ID_in_survey_from_shell="id_used"
 
 # years for which firm survey exists (plus a few years before for lags)
 export year_start_from_shell="1973"

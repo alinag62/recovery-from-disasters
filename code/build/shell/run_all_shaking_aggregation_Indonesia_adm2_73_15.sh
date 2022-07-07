@@ -3,8 +3,8 @@
 ############################################
 
 #set project path
-cd /Users/alina/Library/CloudStorage/Box-Box/recovery-from-disasters
-export path_from_shell="/Users/alina/Library/CloudStorage/Box-Box/recovery-from-disasters"
+cd /Users/alinagafanova/Library/CloudStorage/Box-Box/recovery-from-disasters
+export path_from_shell="/Users/alinagafanova/Library/CloudStorage/Box-Box/recovery-from-disasters"
 
 #country name as in folder's name; country_abbr as in shapefile name
 export country_from_shell="Indonesia"
@@ -15,10 +15,7 @@ export adm_level_from_shell="adm2"
 export perc_thr_from_shell="10"
 
 # ID is unique id in shapefile 
-# ID_in_survey is unique id in firm data
-# ID and ID_in_survey correspond to the same regions
 export ID_from_shell="ID_2"
-export ID_in_survey_from_shell="ADM2_id_in"
 
 # years for which firm survey exists (plus a few years before for lags)
 export year_start_from_shell="1973"
@@ -32,9 +29,9 @@ export raster_name_from_shell="IDN_adm2_30_sec"
 ############################################
 ############################################
 
-export PATH=$PATH:/Applications/MATLAB_R2021a.app/bin/
-export PATH=$PATH:/Applications/Stata/StataMP.app/Contents/MacOS/
+export PATH=$PATH:/Applications/MATLAB_R2022a.app/bin/
+export PATH=$PATH:/Applications/Stata/StataSE.app/Contents/MacOS/
 
-#Rscript code/R/rasterizing_districts/shp2raster_for_shell.R
-matlab -nosplash -nodisplay -nodesktop -r  "run ./code/matlab/entire_shaking_aggregation_matlab.m; quit" 
-StataMP -b do code/do/entire_shaking_aggregation_do.do
+Rscript code/build/R/rasterizing_districts/shp2raster_for_shell.R
+matlab -nosplash -nodisplay -nodesktop -r  "run ./code/build/matlab/entire_shaking_aggregation_matlab.m; quit" 
+StataSE -b do code/build/do/entire_shaking_aggregation_do.do

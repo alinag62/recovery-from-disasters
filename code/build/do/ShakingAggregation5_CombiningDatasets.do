@@ -14,6 +14,7 @@ local path2shp $path2shp
 local country $country
 local country_abbr $country_abbr
 local adm_level $adm_level
+local ID $ID
 
 *************************************************
 * Manual check
@@ -36,6 +37,10 @@ foreach file in `files' {
 }
 
 cap drop mpga mag_pgv mpgv mag num_qs number_quakes_pgv area urban_level pop
+
+*rename region name to the name as in the shapefile
+rename region `ID'
+
 save "`pathbuilt'/region_panel/panel_earthquakes_thresh_`percentage_thresholds'.dta", replace
 
 

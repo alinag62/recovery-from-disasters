@@ -14,7 +14,6 @@ global perc_thr: env perc_thr_from_shell
 * ID_in_survey is unique id in firm data
 * ID and ID_in_survey correspond to the same regions
 global ID: env ID_from_shell
-global ID_in_survey: env ID_in_survey_from_shell
 
 *******************************************************
 *******************************************************
