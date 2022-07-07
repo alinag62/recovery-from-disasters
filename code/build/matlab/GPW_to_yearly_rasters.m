@@ -1,6 +1,6 @@
 %% Create yearly population rasters for all the world
 
-path='/Users/alina/Library/CloudStorage/Box-Box/recovery-from-disasters';
+path='/Users/alinagafanova/Library/CloudStorage/Box-Box/recovery-from-disasters';
 cd(path);
 
 %loop through pairs of years

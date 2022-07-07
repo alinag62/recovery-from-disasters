@@ -22,16 +22,16 @@ raster_name=getenv('raster_name_from_shell');
 % ID='ID_3';
 % country='Chile';
 % country_abbr='CHL';
-% path='/Users/alina/Library/CloudStorage/Box-Box/recovery-from-disasters';
+% path='/Users/alinagafanova/Library/CloudStorage/Box-Box/recovery-from-disasters';
 % adm_level='adm3';
 % raster_name='CHL_adm3_30_sec';
 
 
 %% Add Paths
 cd(path);
-addpath('./code/matlab/matlab_shakemaptools');
-addpath('./code/matlab/matlab_scale');
-addpath('./code/matlab/matlab_stata_translation');
+addpath('./code/build/matlab/matlab_shakemaptools');
+addpath('./code/build/matlab/matlab_scale');
+addpath('./code/build/matlab/matlab_stata_translation');
 
 %% paths to folders 
 path2shp=['./data/firm-data/' country '/Shapefile/' country_abbr '_adm_shp/' country_abbr '_' adm_level '.shp'];
@@ -58,7 +58,7 @@ if not(isfolder([path2save_shake '/region_csvs']))
 end
 
 %% set project directory
-addpath('./code/matlab');
+addpath('./code/build/matlab');
 
 %Step 0
 ShakingAggregation0_Population_area_year(1970,1979,path2shp,path2id,path2save_pop,ID)
