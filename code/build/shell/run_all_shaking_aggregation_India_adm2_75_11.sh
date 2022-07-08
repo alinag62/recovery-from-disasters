@@ -15,7 +15,7 @@ export adm_level_from_shell="adm2"
 export perc_thr_from_shell="10"
 
 # ID is unique id in shapefile 
-export ID_from_shell="ID_2"
+export ID_from_shell="ID_2" 
 
 # years for which firm survey exists (plus a few years before for lags)
 export year_start_from_shell="1975"
@@ -34,4 +34,4 @@ export PATH=$PATH:/Applications/Stata/StataSE.app/Contents/MacOS/
 
 Rscript code/build/R/rasterizing_districts/shp2raster_for_shell.R
 matlab -nosplash -nodisplay -nodesktop -r  "run ./code/build/matlab/entire_shaking_aggregation_matlab.m; quit" 
-StataMP -b do code/build/do/entire_shaking_aggregation_do.do
+StataSE -b do code/build/do/entire_shaking_aggregation_do.do

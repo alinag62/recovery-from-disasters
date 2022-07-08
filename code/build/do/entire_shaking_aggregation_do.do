@@ -11,8 +11,6 @@ global adm_level: env adm_level_from_shell
 global perc_thr: env perc_thr_from_shell
 
 * ID is unique id in shapefile 
-* ID_in_survey is unique id in firm data
-* ID and ID_in_survey correspond to the same regions
 global ID: env ID_from_shell
 
 *******************************************************
@@ -47,15 +45,15 @@ if _rc mkdir $path2save_shake/region_panel
 
 
 * Step 3
-do code/do/ShakingAggregation3_CSVtoStata.do
+do code/build/do/ShakingAggregation3_CSVtoStata.do
 di("Done with CSVtoStata!")
 
 *Step 4
-do code/do/ShakingAggregation4_SpatialAggregation.do
+do code/build/do/ShakingAggregation4_SpatialAggregation.do
 di("Done with SpatialAggregation!")
 
 *Step 5
-do code/do/ShakingAggregation5_CombiningDatasets.do
+do code/build/do/ShakingAggregation5_CombiningDatasets.do
 di("Done with CombiningDatasets!")
 
 
