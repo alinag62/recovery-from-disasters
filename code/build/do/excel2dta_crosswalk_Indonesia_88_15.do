@@ -1,13 +1,13 @@
 * Working with masterfile to create a crosswalk
 
-local path "/Users/alina/Library/CloudStorage/Box-Box/recovery-from-disasters"
+local path "/Users/alinagafanova/Library/CloudStorage/Box-Box/recovery-from-disasters"
 cd `path'
 
 ********************************************************************************
 *I.Crosswalk between 1988 and 1993 (we don't have ID information here)
 ********************************************************************************
 
-import excel "./data/shapefiles/regions_codes/mfkab_88_93.xlsx", sheet("Sheet1") firstrow clear
+import excel "./data/firm-data/Indonesia/regions_codes/mfkab_88_93.xlsx", sheet("Sheet1") firstrow clear
 gen id_year1988 = id_year1994
 replace id_year1988 = 1803 if name_year1994=="LAMPUNG BARAT"
 replace id_year1988 = 3219 if name_year1994=="KOTA TANGERANG"
@@ -52,7 +52,7 @@ save "`years_88_93'"
 ********************************************************************************
 *II. Combine data for 1993-2015
 ********************************************************************************
-import excel "./data/shapefiles/regions_codes/mfkab_93_09.xlsx", sheet("Sheet1") firstrow clear
+import excel "./data/firm-data/Indonesia/regions_codes/mfkab_93_09.xlsx", sheet("Sheet1") firstrow clear
 
 rename KAB290Des1993 name_year1994
 rename ID290 id_year1994
@@ -108,7 +108,7 @@ tempfile years_93_09
 save "`years_93_09'"
 
 *merge 93_09 with 09_15 to create crosswalk file for 1993-2015
-import excel "./data/shapefiles/regions_codes/mfkab_09_15.xlsx", sheet("Sheet1") firstrow clear
+import excel "./data/firm-data/Indonesia/regions_codes/mfkab_09_15.xlsx", sheet("Sheet1") firstrow clear
 
 *add "kota" to cities names (not to confuse with municipalities)
 gen kota = "KOTA"
@@ -180,7 +180,7 @@ bys i_harmonize_to_1988: replace i_harmonize_to_1988=_n
 replace i_harmonize_to_1988 = . if i_harmonize_to_1988>1
 replace i_harmonize_to_1988 = sum(i_harmonize_to_1988)
 
-save "./data/shapefiles/regions_codes/crosswalk_1988_2015.dta", replace
+save "./data/firm-data/Indonesia/regions_codes/crosswalk_1988_2015.dta", replace
 
 
 

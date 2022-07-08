@@ -1,6 +1,6 @@
 * Working with masterfile to create a crosswalk
 
-local path "/Users/alina/Library/CloudStorage/Box-Box/recovery-from-disasters"
+local path "/Users/alinagafanova/Library/CloudStorage/Box-Box/recovery-from-disasters"
 cd `path'
 
 ********************************************************************************
@@ -8,7 +8,8 @@ cd `path'
 * and check if it intersects with any year
 ********************************************************************************
 
-import excel "./data/shapefiles/IDN_1988_no_timor/IDN_no_timor_1988.xlsx", sheet("Sheet1") firstrow clear
+import excel "./data/firm-data/Indonesia/Shapefile/IDN_adm_shp/IDN_no_timor_1988.xlsx", sheet("Sheet1") firstrow clear
+
 gen name_year1990 = upper(ADMIN_NAME)
 replace name_year1990 = subinstr(name_year1990, "KODYA.", "KOTA", 1)
 replace name_year1990 = subinstr(name_year1990, "KODYA", "KOTA", 1)
@@ -61,7 +62,7 @@ replace name_year1990 = "KOTA BANDAR LAMPUNG" if name_year1990=="KOTA TANJUNG KA
 tempfile shp90
 save "`shp90'"
 
-use "./data/shapefiles/regions_codes/crosswalk_1988_2015.dta", clear
+use "./data/firm-data/Indonesia/regions_codes/crosswalk_1988_2015.dta", clear
 keep i_harmonize_to_1988 id_year1990 name_year1990
 duplicates drop
 
@@ -71,7 +72,7 @@ sort i_harmonize_to_1988
 keep i_harmonize_to_1988 REGY1990
 rename REGY1990 ADM2_id_in_shp_88
 
-save "./data/shapefiles/regions_codes/crosswalk_1988_2015_to_shp.dta", replace
+save "./data/firm-data/Indonesia/regions_codes/crosswalk_1988_2015_to_shp.dta", replace
 
 
 

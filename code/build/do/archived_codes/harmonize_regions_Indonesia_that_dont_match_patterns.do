@@ -1,6 +1,6 @@
 *Harmonizing Regions in Firm data
 
-local path "/Users/alina/Library/CloudStorage/Box-Box/recovery-from-disasters"
+local path "/Users/alinagafanova/Library/CloudStorage/Box-Box/recovery-from-disasters"
 cd `path'
 
 
@@ -36,14 +36,14 @@ replace dest=0 if dest==.
 *kinda inaccurate match
 rename id id1
 tostring id1, replace
-merge m:1 id1 year using "./data/shapefiles/regions_codes/patterns_regions_with_no_change.dta"
+merge m:1 id1 year using "./data/firm-data/Indonesia/regions_codes/patterns_regions_with_no_change.dta"
 drop if _m==2
 replace i_harmonize_to_1988=85 if id1=="3278"&i_harmonize_to_1988==.
 keep PSID i_harmonize_to_1988 year origin dest
 drop if i_harmonize_to_1988==.
 
 *merge with shapefile and plot
-merge m:1 i_harmonize_to_1988 using "./data/shapefiles/regions_codes/crosswalk_1988_2015_to_shp.dta"
+merge m:1 i_harmonize_to_1988 using "./data/firm-data/Indonesia/regions_codes/crosswalk_1988_2015_to_shp.dta"
 keep if _m==3
 drop _m
 rename ADM2_id_in_shp_88 ADM2_id_in

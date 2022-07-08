@@ -1,8 +1,8 @@
-##---------------------------------------------------
-## This is R code for creatind maximum wind speeds     
-## from tropical cyclones on ADM2 level                   
-## Author: Alina Gafanova                 
-##---------------------------------------------------
+#--------------------------------------------------- #
+# This is R code for creatind maximum wind speeds     
+# from tropical cyclones on ADM2 level                   
+# Author: Alina Gafanova                 
+#--------------------------------------------------- #
 rm(list=ls())
 
 # load packages
@@ -21,11 +21,11 @@ library(lubridate)
 library(collapse)
 library(terra)
 
-#--------------------------------------------------#
-# 0. Set data paths and several variables manually
-#--------------------------------------------------#
+#------------------------------------------------------#
+# 0. Set data paths and several variables manually ----
+#------------------------------------------------------#
 
-path = "/Users/alina/Library/CloudStorage/Box-Box/recovery-from-disasters/"
+path = "/Users/alinagafanova/Library/CloudStorage/Box-Box/recovery-from-disasters/"
 
 #years for start and finish of the analysis (the same as hurricane data file)
 year_min = 1978
@@ -51,9 +51,9 @@ hurr_path = paste(path, "data/tropical-cyclones/intermediate/Indonesia/subset_19
 hurr_ind_storms = paste(path, "data/tropical-cyclones/intermediate/Indonesia/csvs", sep="")
 hurr_country_storms = paste(path, "data/tropical-cyclones/intermediate/Indonesia", sep="")
 
-##########################
+##########################-
 #NO MANUAL CHANGES BELOW
-##########################
+##########################-
 
 #path to all hurricane data
 hurr_all_path = paste(path, "data/tropical-cyclones/raw/IBTrACS-points/IBTrACS.ALL.list.v04r00.points.shp", sep="")
@@ -62,7 +62,7 @@ hurr_all_path = paste(path, "data/tropical-cyclones/raw/IBTrACS-points/IBTrACS.A
 gpw_pop_main_path = paste(path, "data/population/intermediate/global_annual_gpw", sep="")
 
 #--------------------------------------------------#
-# 1. Load and clean data
+# 1. Load and clean data ----
 #--------------------------------------------------#
 
 setwd(path)
@@ -99,7 +99,7 @@ grid2 <- st_transform(grid2, crs = crs)
 gridRaster <- raster(grid_rast_path)
 
 #--------------------------------------------------#
-# 2. Setting models' parameters
+# 2. Setting models' parameters ----
 #--------------------------------------------------#
 
 #fixed in a model
@@ -111,9 +111,9 @@ F_water <- 1
 B <- 1.3
 R_m <- 60000
 
-#-----------------------------------------------------#
-# 3. Clean (and re-scale) data on sustained wind speeds
-#-----------------------------------------------------#
+#------------------------------------------------------------#
+# 3. Clean (and re-scale) data on sustained wind speeds ----
+#------------------------------------------------------------#
 
 #exclude spurs
 hurr <- subset(hurr, TRACK_TYPE == "main")
@@ -131,9 +131,9 @@ names(hurr)[names(hurr) == "STORM_SPD"] <- "V_h"
 #only save a subset of columns that we will use from now on
 hurr <- hurr[c("SID","DIST2LAND","NATURE", "LAT", "LON", "V_m", "V_h", "USA_PRES","year","month","day","hour","min", "geometry")]
 
-#--------------------------------------------------#
-# 4. Add locations from points outside the buffer
-#--------------------------------------------------#
+#--------------------------------------------------------#
+# 4. Add locations from points outside the buffer -----
+#--------------------------------------------------------#
 
 #sort hurricane subset by id and time
 hurr <- hurr[with(hurr, order(SID, year, month, day, hour, min)),]
@@ -197,7 +197,7 @@ rm(hurr_subset_by_id)
 hurr <- subset(hurr, select = -c(start))
 
 #--------------------------------------------------#
-# 5. Interpolate wind data to hourly intervals
+# 5. Interpolate wind data to hourly intervals ----
 #--------------------------------------------------#
 
 #rename ISO column
@@ -309,7 +309,7 @@ hurr <- hurr[!is.na(hurr$LAT_t_plus1),]
 hurr <- hurr[!is.na(hurr$V_m),]
 
 #--------------------------------------------------#
-# 5. Add model parameters to the dataset
+# 6. Add model parameters to the dataset ----
 #--------------------------------------------------#
 
 #friction parameter depends on whether eye is on land or water
@@ -329,9 +329,9 @@ hurr <- hurr %>% st_set_crs(crs)
 #ggplot() + 
 #  geom_sf(data = hurr[hurr$SID==hurr$SID[400],]["year"] , fill = NA) 
 
-#---------------------------------------------------#
-# 6. Run the main algorithm: one cyclone ID per loop
-#---------------------------------------------------#
+#---------------------------------------------------------#
+# 7. Run the main algorithm: one cyclone ID per loop ----
+#---------------------------------------------------------#
 
 #new list of unique hurricanes (after dropping data)
 hurr_unique2 <- unique(hurr$SID)
@@ -396,9 +396,9 @@ for (i in hurr_unique2){
   write.csv(save, file = paste(hurr_ind_storms,"/", i,".csv",sep=''))
 }
 
-#-----------------------------------------------------#
-# 7. Create a file with max wind for each year-location
-#-----------------------------------------------------#
+#----------------------------------------------------------#
+# 8. Create a file with max wind for each year-location ----
+#----------------------------------------------------------#
 
 allCSV <- list.files(path=hurr_ind_storms, full.names = TRUE) %>%
   lapply(read_csv) %>%
@@ -444,9 +444,9 @@ write.csv(allCSV, file = paste(hurr_country_storms,"/maxWinds.csv",sep=""))
 rm(allCSV, save, hurr, oneHurr, oneBuffer, oneHurr_buffers_200km, eye, next_eye, site)
 rm(B, G, hurr_unique, i, I, j, R_m, s, S)
 
-#-----------------------------------------------------#
-# 8. Create a full coordinate-year panel with winds
-#-----------------------------------------------------#
+#---------------------------------------------------------#
+# 9. Create a full coordinate-year panel with winds ----
+#---------------------------------------------------------#
 
 dt <- read.csv(file = paste(hurr_country_storms,"/maxWinds.csv",sep=""))
 dt <- subset(dt, select = -c(X))
@@ -499,9 +499,9 @@ ggplot(data2plot) +
 
 rm(panel)
 
-#---------------------------------------------------------------#
-# 9. Rescale winds from 0.1deg to 30arcsec and add pop data
-#---------------------------------------------------------------#
+#------------------------------------------------------------------#
+# 10. Rescale winds from 0.1deg to 30arcsec and add pop data ----
+#------------------------------------------------------------------#
 
 panel <- read.csv(paste(hurr_country_storms,"/maxWinds_with0.csv",sep=""))
 panel <- subset(panel, select = -c(X))
@@ -561,7 +561,7 @@ rm(panel)
 
 
 #---------------------------------------------------------------#
-# 10. Aggregate to ADM2 level
+# 11. Aggregate to ADM2 level ----
 #---------------------------------------------------------------#
 
 #load new 30sec grid again
