@@ -33,5 +33,5 @@ export PATH=$PATH:/Applications/MATLAB_R2022a.app/bin/
 export PATH=$PATH:/Applications/Stata/StataSE.app/Contents/MacOS/
 
 Rscript code/build/R/rasterizing_districts/shp2raster_for_shell.R
-matlab -nosplash -nodisplay -nodesktop -r  "run ./code/build/matlab/entire_shaking_aggregation_matlab.m; quit" 
+matlab -nosplash -nodisplay -nodesktop -r  "run ./code/build/matlab/entire_shaking_aggregation_matlab.m; quit"  
 StataSE -b do code/build/do/entire_shaking_aggregation_do.do
