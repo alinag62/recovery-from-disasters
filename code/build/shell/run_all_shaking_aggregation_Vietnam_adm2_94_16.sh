@@ -14,7 +14,7 @@ export adm_level_from_shell="adm2"
 # perc_thr is for step 4 
 export perc_thr_from_shell="10"
 
-# ID is unique id in shapefile 
+# ID is unique id in shapefile  
 export ID_from_shell="ID_2"
 
 # years for which firm survey exists (plus a few years before for lags)
