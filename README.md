@@ -1,5 +1,3 @@
-# recovery-from-disasters
-
 ## Useful links 
 
 [To-do List](https://uchicago.box.com/s/061ewbdi1ibegn44s28aiuysn92ndhp3)

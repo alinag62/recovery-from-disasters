@@ -24,7 +24,7 @@ merge m:1 ADM2_id_in using "./data/shapefiles/regions_codes/crosswalk_1988_2015_
 drop _m
 
 *#############################################################################*/
-*Part I. Adding lags to the shaking data
+*Part I. Adding lags to the cyclones data
 *#############################################################################
 
 rename weighted_pop_v_s maxs_pop_only
