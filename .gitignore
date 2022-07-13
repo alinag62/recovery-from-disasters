@@ -1,8 +1,14 @@
 # exclude data from source control by default
 /data/
-/code/
 /code/matlab/matlab_scale/
 /code/matlab/matlab_shakemaptools/
+/code/analysis/do/create_tex_files
+/code/analysis/do/indonesia_wb_old
+/code/analysis/do/indonesia_ishan_data
+/code/analysis/do/archived_codes
+/code/analysis/do/chile_old_adm1
+/code/analysis/do/colombia_ishan_data
+/code/analysis/do/vietnam_old_years_2007_13
 /output/
 /admin/
 June_Note_analysis_list.boxnote
@@ -11,3 +17,4 @@ to-do-list.boxnote
 .Rhistory
 .DS_Store
 entire_shaking_aggregation_do.log
+
