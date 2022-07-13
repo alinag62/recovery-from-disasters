@@ -1,0 +1,37 @@
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{Effect of Shaking on Firms in Indonesia, 1988-2015}
+\begin{tabular}{l*{6}{c}}
+\toprule
+                &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}&\multicolumn{1}{c}{(5)}&\multicolumn{1}{c}{(6)}\\
+                &\multicolumn{1}{c}{100Log(Output)}&\multicolumn{1}{c}{100Log(VA)}&\multicolumn{1}{c}{100Log(L)}&\multicolumn{1}{c}{100Log(Avg Wage)}&\multicolumn{1}{c}{100Log(Mat)}&\multicolumn{1}{c}{100Log(VA/L)}\\
+\midrule
+Max PGA         &   -0.194\sym{*}  &   -0.175         &   0.0200         &   -0.211\sym{*}  &   -0.171         &   -0.195\sym{*}  \\
+                & (0.0810)         & (0.0911)         & (0.0452)         & (0.0939)         & (0.0958)         & (0.0844)         \\
+\addlinespace
+Lag 1           &  -0.0647         &  -0.0577         &   0.0361         &  -0.0502         &   -0.105         &  -0.0937         \\
+                & (0.0939)         &  (0.102)         & (0.0436)         & (0.0937)         &  (0.117)         &  (0.110)         \\
+\addlinespace
+Lag 2           &  -0.0815         &   -0.173         &   0.0372         &    0.223         &  -0.0165         &   -0.210\sym{*}  \\
+                & (0.0873)         & (0.0964)         & (0.0440)         &  (0.176)         &  (0.104)         & (0.0865)         \\
+\addlinespace
+Lag 3           &   -0.149         &   -0.204         &  -0.0314         &   -0.312\sym{*}  &  -0.0631         &   -0.173         \\
+                & (0.0971)         &  (0.105)         & (0.0480)         &  (0.135)         &  (0.112)         & (0.0939)         \\
+\addlinespace
+Lag 4           &   -0.113         &   -0.191         & -0.00506         &    0.214         &  -0.0244         &   -0.186         \\
+                &  (0.112)         &  (0.119)         & (0.0511)         &  (0.240)         &  (0.126)         &  (0.110)         \\
+\addlinespace
+Lag 5           &   0.0288         &  -0.0660         &  -0.0168         &   -0.187         &   0.0899         &  -0.0491         \\
+                &  (0.111)         &  (0.116)         & (0.0545)         &  (0.209)         &  (0.131)         &  (0.116)         \\
+\midrule
+N               &   446641         &   446641         &   446641         &   446641         &   446641         &   446641         \\
+Plant FE        &      Yes         &      Yes         &      Yes         &      Yes         &      Yes         &      Yes         \\
+Year FE         &      Yes         &      Yes         &      Yes         &      Yes         &      Yes         &      Yes         \\
+Adjusted R-squared&    0.847         &    0.817         &    0.874         &    0.803         &    0.800         &    0.645         \\
+\bottomrule
+\multicolumn{7}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{7}{l}{\footnotesize Plant and year fixed effects are included in each specification. All variables are real values.}\\
+\multicolumn{7}{l}{\footnotesize Errors are clustered on both plant-level and region-by-year level. }\\
+\multicolumn{7}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+\end{table}
