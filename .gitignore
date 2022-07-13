@@ -1,6 +1,5 @@
 # exclude data from source control by default
 /data/
-/code/
 /code/matlab/matlab_scale/
 /code/matlab/matlab_shakemaptools/
 /output/
