@@ -1,0 +1,37 @@
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{Effect of Cyclones on Firms in Indonesia, 1988-2015}
+\begin{tabular}{l*{6}{c}}
+\toprule
+                &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}&\multicolumn{1}{c}{(5)}&\multicolumn{1}{c}{(6)}\\
+                &\multicolumn{1}{c}{100Log(Output)}&\multicolumn{1}{c}{100Log(VA)}&\multicolumn{1}{c}{100Log(L)}&\multicolumn{1}{c}{100Log(Avg Wage)}&\multicolumn{1}{c}{100Log(Mat)}&\multicolumn{1}{c}{100Log(VA/L)}\\
+\midrule
+N of Storms     &    28.39\sym{*}  &    36.10\sym{*}  &    20.68\sym{***}&    2.411         &    26.65\sym{*}  &    15.42         \\
+                &  (13.09)         &  (14.92)         &  (5.702)         &  (12.87)         &  (12.93)         &  (11.50)         \\
+\addlinespace
+Lag 1           &    4.077         &    5.912         &    24.40\sym{***}&   -2.989         &   -2.296         &   -18.49         \\
+                &  (13.36)         &  (15.92)         &  (6.948)         &  (9.002)         &  (15.09)         &  (15.00)         \\
+\addlinespace
+Lag 2           &    11.51         &    12.87         &    30.41\sym{***}&    6.064         &    20.81         &   -17.54         \\
+                &  (13.55)         &  (14.01)         &  (6.001)         &  (10.14)         &  (14.24)         &  (11.54)         \\
+\addlinespace
+Lag 3           &    47.74\sym{***}&    44.75\sym{***}&    27.40\sym{***}&    37.26\sym{***}&    51.57\sym{***}&    17.35\sym{**} \\
+                &  (8.516)         &  (8.042)         &  (4.412)         &  (7.528)         &  (10.90)         &  (6.329)         \\
+\addlinespace
+Lag 4           &    37.04\sym{***}&    29.89\sym{***}&    23.52\sym{***}&    26.17\sym{***}&    43.34\sym{***}&    6.370         \\
+                &  (7.965)         &  (7.596)         &  (4.630)         &  (7.077)         &  (10.25)         &  (6.343)         \\
+\addlinespace
+Lag 5           &    21.79\sym{*}  &    16.69\sym{*}  &    11.96\sym{*}  &    11.94         &    24.30\sym{*}  &    4.732         \\
+                &  (8.996)         &  (7.540)         &  (5.179)         &  (8.759)         &  (10.80)         &  (4.919)         \\
+\midrule
+N               &   446641         &   446641         &   446641         &   446641         &   446641         &   446641         \\
+Plant FE        &      Yes         &      Yes         &      Yes         &      Yes         &      Yes         &      Yes         \\
+Year FE         &      Yes         &      Yes         &      Yes         &      Yes         &      Yes         &      Yes         \\
+Adjusted R-squared&    0.847         &    0.817         &    0.874         &    0.803         &    0.800         &    0.645         \\
+\bottomrule
+\multicolumn{7}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{7}{l}{\footnotesize Plant and year fixed effects are included in each specification. All variables are real values.}\\
+\multicolumn{7}{l}{\footnotesize Errors are clustered on both plant-level and region-by-year level. }\\
+\multicolumn{7}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+\end{table}
