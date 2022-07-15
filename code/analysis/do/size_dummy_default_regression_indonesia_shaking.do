@@ -57,7 +57,7 @@ foreach y in 1988 1995 2006 {
 		}
 
 		*export results 
-		esttab log_rout log_rvad log_lbr log_rwage log_rmat log_rlabprod using ./clean_output/tables/size_dummy_`y'_default_regression_indonesia_shaking_`var'.tex , se noconstant title("Effect of Shaking on Firms in Indonesia, `yplus1'-2015") replace booktabs compress addnotes("Plant and year fixed effects are included in each specification. All variables are real values." "Errors are clustered on both plant-level and region-by-year level." "Sizes are defined in `y' based on labor. Non-interacted variables correspond to 1st tercile.") drop(*.size 1.size#*) s(N firm year r2_a , labels("N" "Plant FE" "Year FE" "Adjusted R-squared" )) label
+		esttab log_rout log_rvad log_lbr log_rwage log_rmat log_rlabprod using ./clean_output/tables/size_dummy_`y'_default_regression_indonesia_shaking_`var'.tex , se noconstant title("Effect of Shaking on Firms in Indonesia, `yplus1'-2015") replace booktabs compress addnotes("Plant and year fixed effects are included in each specification. All variables are real values." "Errors are clustered on both plant-level and region-by-year level." "Sizes are defined in `y' based on labor. Non-interacted variables correspond to 1st tercile.") drop(*.size 1.size#* _cons) s(N firm year r2_a , labels("N" "Plant FE" "Year FE" "Adjusted R-squared" )) label
 			
 	}
 	
