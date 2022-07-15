@@ -1,0 +1,37 @@
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{Effect of Shaking on Firms in India, 1985-2007, p.1}
+\begin{tabular}{l*{5}{c}}
+\toprule
+                &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}&\multicolumn{1}{c}{(5)}\\
+                &\multicolumn{1}{c}{100Log(Output)}&\multicolumn{1}{c}{100Log(Sales)}&\multicolumn{1}{c}{100Log(L)}&\multicolumn{1}{c}{100Log(Avg Wage)}&\multicolumn{1}{c}{100Log(L Cost)}\\
+\midrule
+N of EQs        &    0.235         &   -0.607         &   -2.001\sym{**} &    0.636         &   -1.306         \\
+                &  (1.261)         &  (1.186)         &  (0.756)         &  (0.348)         &  (0.808)         \\
+\addlinespace
+Lag 1           &    0.624         &  -0.0302         &   -1.357         &    1.233\sym{**} &    0.263         \\
+                &  (0.825)         &  (0.867)         &  (0.710)         &  (0.452)         &  (0.640)         \\
+\addlinespace
+Lag 2           &    0.402         &    0.182         &   -1.957\sym{**} &    1.082\sym{*}  &   -1.016         \\
+                &  (0.931)         &  (0.963)         &  (0.663)         &  (0.456)         &  (0.681)         \\
+\addlinespace
+Lag 3           &    1.117         &    0.919         &   -0.373         &    0.647         &    0.585         \\
+                &  (0.933)         &  (0.947)         &  (0.652)         &  (0.483)         &  (0.655)         \\
+\addlinespace
+Lag 4           &   -0.110         &   -0.425         &   -0.948         &   -0.452         &   -1.369         \\
+                &  (1.235)         &  (1.393)         &  (0.515)         &  (0.488)         &  (0.703)         \\
+\addlinespace
+Lag 5           &    0.337         &   0.0505         &   -0.530         &    0.421         &  0.00590         \\
+                &  (1.121)         &  (1.240)         &  (0.415)         &  (0.390)         &  (0.558)         \\
+\midrule
+N               &   439138         &   439138         &   439138         &   439138         &   439138         \\
+Plant FE        &      Yes         &      Yes         &      Yes         &      Yes         &      Yes         \\
+Year FE         &      Yes         &      Yes         &      Yes         &      Yes         &      Yes         \\
+Adjusted R-squared&    0.925         &    0.910         &    0.930         &    0.843         &    0.947         \\
+\bottomrule
+\multicolumn{6}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{6}{l}{\footnotesize Plant and year fixed effects are included in each specification. All variables are real values.}\\
+\multicolumn{6}{l}{\footnotesize Errors are clustered on both plant-level and region-by-year level. }\\
+\multicolumn{6}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+\end{table}
