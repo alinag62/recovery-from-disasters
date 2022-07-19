@@ -1,0 +1,37 @@
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{Effect of Cyclones on Firms in India, 1985-2007, p.1}
+\begin{tabular}{l*{5}{c}}
+\toprule
+                &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}&\multicolumn{1}{c}{(5)}\\
+                &\multicolumn{1}{c}{100Log(Output)}&\multicolumn{1}{c}{100Log(Sales)}&\multicolumn{1}{c}{100Log(L)}&\multicolumn{1}{c}{100Log(Avg Wage)}&\multicolumn{1}{c}{100Log(L Cost)}\\
+\midrule
+Max Speed (m/s) &  -0.0259         &  -0.0329         &  -0.0392         & 0.000823         &  -0.0447         \\
+                & (0.0279)         & (0.0319)         & (0.0236)         & (0.0143)         & (0.0294)         \\
+\addlinespace
+Lag 1           &   0.0793\sym{**} &   0.0768\sym{*}  &   0.0242         &   0.0638\sym{***}&   0.0918\sym{***}\\
+                & (0.0280)         & (0.0328)         & (0.0192)         & (0.0177)         & (0.0261)         \\
+\addlinespace
+Lag 2           &   0.0266         &   0.0407         &   0.0258         &   0.0413\sym{**} &   0.0651\sym{*}  \\
+                & (0.0317)         & (0.0328)         & (0.0244)         & (0.0134)         & (0.0283)         \\
+\addlinespace
+Lag 3           &   0.0670\sym{*}  &   0.0722\sym{*}  &   0.0635\sym{**} &   0.0302\sym{*}  &   0.0981\sym{***}\\
+                & (0.0269)         & (0.0301)         & (0.0197)         & (0.0136)         & (0.0231)         \\
+\addlinespace
+Lag 4           &   0.0579\sym{*}  &   0.0619\sym{*}  &   0.0550\sym{**} &   0.0252         &   0.0835\sym{***}\\
+                & (0.0236)         & (0.0268)         & (0.0180)         & (0.0131)         & (0.0203)         \\
+\addlinespace
+Lag 5           &   0.0267         &   0.0270         &   0.0125         &   0.0231         &   0.0348         \\
+                & (0.0249)         & (0.0276)         & (0.0185)         & (0.0133)         & (0.0209)         \\
+\midrule
+N               &   439138         &   439138         &   439138         &   439138         &   439138         \\
+Plant FE        &      Yes         &      Yes         &      Yes         &      Yes         &      Yes         \\
+Year FE         &      Yes         &      Yes         &      Yes         &      Yes         &      Yes         \\
+Adjusted R-squared&    0.925         &    0.910         &    0.930         &    0.843         &    0.947         \\
+\bottomrule
+\multicolumn{6}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{6}{l}{\footnotesize Plant and year fixed effects are included in each specification. All variables are real values.}\\
+\multicolumn{6}{l}{\footnotesize Errors are clustered on both plant-level and region-by-year level. }\\
+\multicolumn{6}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+\end{table}

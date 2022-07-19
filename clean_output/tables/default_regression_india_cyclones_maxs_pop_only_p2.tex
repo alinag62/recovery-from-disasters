@@ -1,0 +1,37 @@
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{Effect of Cyclones on Firms in India, 1985-2007, p.2}
+\begin{tabular}{l*{4}{c}}
+\toprule
+                &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}\\
+                &\multicolumn{1}{c}{100Log(K)}&\multicolumn{1}{c}{100Log(Mat)}&\multicolumn{1}{c}{100Log(Fuels)}&\multicolumn{1}{c}{100Log(Distr Cost)}\\
+\midrule
+Max Speed (m/s) &   0.0370         &  -0.0189         &  -0.0177         & -0.00872         \\
+                & (0.0396)         & (0.0332)         & (0.0355)         & (0.0511)         \\
+\addlinespace
+Lag 1           &   0.0232         &   0.0679\sym{*}  &    0.160\sym{***}&   0.0588         \\
+                & (0.0347)         & (0.0335)         & (0.0386)         & (0.0519)         \\
+\addlinespace
+Lag 2           &  -0.0199         &   0.0567         &   0.0764\sym{*}  & -0.00485         \\
+                & (0.0337)         & (0.0343)         & (0.0352)         & (0.0547)         \\
+\addlinespace
+Lag 3           &  -0.0156         &   0.0611         &   0.0991\sym{**} &   0.0344         \\
+                & (0.0325)         & (0.0319)         & (0.0303)         & (0.0506)         \\
+\addlinespace
+Lag 4           &  -0.0185         &   0.0645\sym{*}  &   0.0251         &   0.0759         \\
+                & (0.0290)         & (0.0291)         & (0.0253)         & (0.0486)         \\
+\addlinespace
+Lag 5           &  -0.0605\sym{*}  &   0.0367         &   0.0171         &   0.0165         \\
+                & (0.0309)         & (0.0300)         & (0.0271)         & (0.0467)         \\
+\midrule
+N               &   439138         &   439138         &   439138         &   439138         \\
+Plant FE        &      Yes         &      Yes         &      Yes         &      Yes         \\
+Year FE         &      Yes         &      Yes         &      Yes         &      Yes         \\
+Adjusted R-squared&    0.942         &    0.906         &    0.940         &    0.837         \\
+\bottomrule
+\multicolumn{5}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{5}{l}{\footnotesize Plant and year fixed effects are included in each specification. All variables are real values.}\\
+\multicolumn{5}{l}{\footnotesize Errors are clustered on both plant-level and region-by-year level. }\\
+\multicolumn{5}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+\end{table}
