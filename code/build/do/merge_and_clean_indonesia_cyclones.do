@@ -36,10 +36,10 @@ foreach i of num 1/10 {
 	}
 }
 
-*keep year ID_2 i_harmonize_to_1988 maxs_pop_only* storm_pop_only* _ID
+keep year ID_2 i_harmonize_to_1988 maxs_pop_only* storm_pop_only* _ID
 
 *#############################################################################*/
-*Part II. Merging shaking data with firm data and cleaning it
+*Part II. Merging cyclones data with firm data and cleaning it
 *#############################################################################
 merge 1:m i_harmonize_to_1988 year using "./data/firm-data/Indonesia/Final-Dataset/maindata_clean_95perc.dta"
 keep if _m==3

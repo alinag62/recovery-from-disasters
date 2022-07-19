@@ -12,7 +12,7 @@ eststo clear
 
 keep if log_routput_exists==1&log_routput_exists==1&log_rsales_exists==1&log_ravg_wage_exists==1&log_rlabcost_exists==1&log_rmaterials_exists==1&log_rcapital_exists==1&log_rfuels_exists==1&log_employees_exists==1&log_rdisttotout_exists==1
 
-foreach var in pop_mpga_aw pop_num_qs_aw {
+foreach var in pop_mpga_aw pop_num_aw {
 	
 	foreach dep in log_routput log_rsales log_employees log_ravg_wage log_rlabcost {		
 		
@@ -37,7 +37,7 @@ foreach var in pop_mpga_aw pop_num_qs_aw {
 }
 
 eststo clear
-foreach var in pop_mpga_aw pop_num_qs_aw {
+foreach var in pop_mpga_aw pop_num_aw {
 	
 	foreach dep in log_rcapital log_rmaterials log_rfuels log_rdisttotout{		
 		
