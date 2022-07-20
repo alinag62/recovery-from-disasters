@@ -30,7 +30,7 @@ foreach var in pop_mpga_aw pop_num_aw {
 	}
 
 	*export results 
-	esttab log_routput log_rsales log_employees log_ravg_wage log_rlabcost using ./clean_output/tables/default_regression_india_shaking_`var'_p1.tex, se noconstant title("Effect of Shaking on Firms in India, 1985-2007, p.1") replace booktabs compress keep(`treat') addnotes("Plant and year fixed effects are included in each specification. All variables are real values." "Errors are clustered on both plant-level and region-by-year level. ") s(N firm year r2_a , labels("N" "Plant FE" "Year FE" "Adjusted R-squared" )) label
+	esttab log_routput log_rsales log_employees log_ravg_wage log_rlabcost using ./clean_output/tables/default_regression_india_shaking_`var'_p1.tex, se noconstant title("Effect of Shaking on Firms in India, 1989-2007, p.1") replace booktabs compress keep(`treat') addnotes("Plant and year fixed effects are included in each specification. All variables are real values." "Errors are clustered on both plant-level and region-by-year level. ") s(N firm year r2_a , labels("N" "Plant FE" "Year FE" "Adjusted R-squared" )) label
 	
 	
 		
@@ -55,7 +55,7 @@ foreach var in pop_mpga_aw pop_num_aw {
 	}
 
 	*export results 
-	esttab log_rcapital log_rmaterials log_rfuels log_rdisttotout using ./clean_output/tables/default_regression_india_shaking_`var'_p2.tex, se noconstant title("Effect of Shaking on Firms in India, 1985-2007, p.2") replace booktabs compress keep(`treat') addnotes("Plant and year fixed effects are included in each specification. All variables are real values." "Errors are clustered on both plant-level and region-by-year level. ") s(N firm year r2_a , labels("N" "Plant FE" "Year FE" "Adjusted R-squared" )) label
+	esttab log_rcapital log_rmaterials log_rfuels log_rdisttotout using ./clean_output/tables/default_regression_india_shaking_`var'_p2.tex, se noconstant title("Effect of Shaking on Firms in India, 1989-2007, p.2") replace booktabs compress keep(`treat') addnotes("Plant and year fixed effects are included in each specification. All variables are real values." "Errors are clustered on both plant-level and region-by-year level. ") s(N firm year r2_a , labels("N" "Plant FE" "Year FE" "Adjusted R-squared" )) label
 		
 }
 

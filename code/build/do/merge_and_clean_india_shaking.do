@@ -15,7 +15,11 @@ set more off
 use "./data/earthquakes/intermediate/India_adm2/region_panel/panel_earthquakes_thresh_10.dta"
 
 *after 2008 - only 2 regions exist have spatial IDs
-drop if year>2007
+drop if year>=2008
+
+*before 1989 - firms only stay 1-2 years; no firms that start before 1989
+*exist in data in or after 1989
+drop if year<=1988
 
 *rename since the names are too long
 rename populatedmpga_aw pop_mpga_aw
