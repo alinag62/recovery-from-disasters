@@ -17,10 +17,6 @@ use "./data/earthquakes/intermediate/India_adm2/region_panel/panel_earthquakes_t
 *after 2008 - only 2 regions exist have spatial IDs
 drop if year>=2008
 
-*before 1989 - firms only stay 1-2 years; no firms that start before 1989
-*exist in data in or after 1989
-drop if year<=1988
-
 *rename since the names are too long
 rename populatedmpga_aw pop_mpga_aw
 rename populatednum_qs_aw pop_num_aw
@@ -45,6 +41,10 @@ rename ID_2 id_used
 merge 1:m id_used year using "./data/firm-data/India/Final-Dataset/India_survey_readytoregress.dta"
 keep if _m==3
 drop _m
+
+*before 1989 - firms only stay 1-2 years; no firms that start before 1989
+*exist in data in or after 1989
+drop if year<=1988
 
 *drop observations without panel ID 
 drop if panelID==.
