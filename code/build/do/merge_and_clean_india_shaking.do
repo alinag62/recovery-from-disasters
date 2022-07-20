@@ -32,6 +32,10 @@ foreach i of num 1/10 {
 	}
 }
 
+*before 1989 - firms only stay 1-2 years; no firms that start before 1989
+*exist in data in or after 1989
+drop if year<=1988
+
 keep year ID_2 pop_mpga_aw* pop_num_aw* 
 
 *#############################################################################*/
@@ -41,10 +45,6 @@ rename ID_2 id_used
 merge 1:m id_used year using "./data/firm-data/India/Final-Dataset/India_survey_readytoregress.dta"
 keep if _m==3
 drop _m
-
-*before 1989 - firms only stay 1-2 years; no firms that start before 1989
-*exist in data in or after 1989
-drop if year<=1988
 
 *drop observations without panel ID 
 drop if panelID==.
