@@ -1,5 +1,6 @@
 *#############################################################################
 *Program for appending local projections results into one column 
+*created by Ben Jann (took it from an open source)
 *#############################################################################
 
 capt prog drop appendmodels
