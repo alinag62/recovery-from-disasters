@@ -12,6 +12,12 @@ set more off
 *#############################################################################*/
 *Part I. Creating lags in cyclones data
 *#############################################################################
+*the output of cyclone algorithm is saved as .csv
+*make sure you have the latest version
+import delimited "./data/tropical-cyclones/intermediate/Indonesia/maxWindsADM2_with_population.csv", encoding(ISO-8859-9) clear 
+drop v1
+rename id_2 ID_2
+save "./data/tropical-cyclones/intermediate/Indonesia/maxWindsADM2_with_population.dta", replace 
 
 use "./data/tropical-cyclones/intermediate/Indonesia/maxWindsADM2_with_population.dta",clear
 
