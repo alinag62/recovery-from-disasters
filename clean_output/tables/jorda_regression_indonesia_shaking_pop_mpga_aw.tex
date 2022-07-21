@@ -1,0 +1,37 @@
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{Effect of Shaking on Firms in Indonesia, 1988-2015. Jorda method}
+\begin{tabular}{l*{6}{c}}
+\toprule
+                &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}&\multicolumn{1}{c}{(5)}&\multicolumn{1}{c}{(6)}\\
+                &\multicolumn{1}{c}{100Log(Output)}&\multicolumn{1}{c}{100Log(VA)}&\multicolumn{1}{c}{100Log(L)}&\multicolumn{1}{c}{100Log(Avg Wage)}&\multicolumn{1}{c}{100Log(Mat)}&\multicolumn{1}{c}{100Log(VA/L)}\\
+\midrule
+Max PGA         &   -0.167\sym{*}  &   -0.134         &   0.0189         &   -0.210\sym{*}  &   -0.158         &   -0.153         \\
+                & (0.0791)         & (0.0890)         & (0.0429)         & (0.0955)         & (0.0933)         & (0.0821)         \\
+\addlinespace
+Lag 1           &  -0.0317         & -0.00185         &   0.0357         &  -0.0317         &  -0.0948         &  -0.0375         \\
+                & (0.0883)         & (0.0953)         & (0.0400)         & (0.0924)         &  (0.111)         &  (0.104)         \\
+\addlinespace
+Lag 2           &  -0.0552         &   -0.133         &   0.0375         &    0.258         & -0.00343         &   -0.170\sym{*}  \\
+                & (0.0805)         & (0.0895)         & (0.0405)         &  (0.171)         & (0.0958)         & (0.0802)         \\
+\addlinespace
+Lag 3           &   -0.121         &   -0.161         &  -0.0361         &   -0.313\sym{*}  &  -0.0473         &   -0.125         \\
+                & (0.0913)         & (0.0995)         & (0.0445)         &  (0.133)         &  (0.104)         & (0.0884)         \\
+\addlinespace
+Lag 4           &  -0.0794         &   -0.145         & -0.00835         &    0.255         & -0.00338         &   -0.137         \\
+                &  (0.106)         &  (0.112)         & (0.0479)         &  (0.238)         &  (0.120)         &  (0.104)         \\
+\addlinespace
+Lag 5           &   0.0585         &  -0.0219         &  -0.0212         &   -0.194         &    0.108         &-0.000653         \\
+                &  (0.107)         &  (0.111)         & (0.0516)         &  (0.207)         &  (0.127)         &  (0.113)         \\
+\midrule
+N               &   446641         &   446641         &   446641         &   446641         &   446641         &   446641         \\
+Plant FE        &      Yes         &      Yes         &      Yes         &      Yes         &      Yes         &      Yes         \\
+Year FE         &      Yes         &      Yes         &      Yes         &      Yes         &      Yes         &      Yes         \\
+\bottomrule
+\multicolumn{7}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{7}{l}{\footnotesize Plant and year fixed effects are included in each specification. All variables are real values.}\\
+\multicolumn{7}{l}{\footnotesize Errors are clustered on both plant-level and region-by-year level.}\\
+\multicolumn{7}{l}{\footnotesize All the results are from local projections, following Jorda (2005).}\\
+\multicolumn{7}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+\end{table}
